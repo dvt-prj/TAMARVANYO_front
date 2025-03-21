@@ -4,10 +4,9 @@ import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'navbar',
-  standalone: true,
-  imports: [RouterModule],
-  templateUrl: './navbar.component.html'
+    selector: 'navbar',
+    imports: [RouterModule],
+    templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
 

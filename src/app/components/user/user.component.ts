@@ -8,10 +8,9 @@ import { load, remove } from '../../store/users/users.actions';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'user',
-  standalone: true,
-  imports: [RouterModule, PaginatorComponent],
-  templateUrl: './user.component.html'
+    selector: 'user',
+    imports: [RouterModule, PaginatorComponent],
+    templateUrl: './user.component.html'
 })
 export class UserComponent implements OnInit {
 

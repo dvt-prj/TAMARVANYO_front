@@ -6,10 +6,9 @@ import { Store } from '@ngrx/store';
 import { add, find, resetUser, update } from '../../store/users/users.actions';
 
 @Component({
-  selector: 'user-form',
-  standalone: true,
-  imports: [FormsModule],
-  templateUrl: './user-form.component.html'
+    selector: 'user-form',
+    imports: [FormsModule],
+    templateUrl: './user-form.component.html'
 })
 export class UserFormComponent implements OnInit {
 

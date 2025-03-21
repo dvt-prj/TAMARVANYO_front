@@ -8,10 +8,9 @@ import { Store } from '@ngrx/store';
 import { login } from '../../store/auth/auth.actions';
 
 @Component({
-  selector: 'app-auth',
-  standalone: true,
-  imports: [FormsModule],
-  templateUrl: './auth.component.html'
+    selector: 'app-auth',
+    imports: [FormsModule],
+    templateUrl: './auth.component.html'
 })
 export class AuthComponent {
 
