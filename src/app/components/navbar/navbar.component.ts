@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -24,6 +23,15 @@ export class NavbarComponent {
 
   handlerLogout() {
     this.authService.logout();
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
+  }
+
+  get fullname() {
+    const userDB = this.login?.userDB;
+    if (userDB) {
+      const { name, lastname, lastname2 } = userDB;
+      return [name, lastname, lastname2].filter(Boolean).join(' ');
+    }
+    return '';
   }
 }

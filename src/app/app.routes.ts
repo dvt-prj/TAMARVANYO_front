@@ -9,15 +9,17 @@ export const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: '/users/page/0'
+        redirectTo: '/login'
     },
     {
         path: 'users',
         component: UserComponent,
+        canActivate: [authGuard]
     },
     {
         path: 'users/page/:page',
         component: UserComponent,
+        canActivate: [authGuard]
     },
     {
         path: 'users/create', 
