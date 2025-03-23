@@ -1,17 +1,32 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { TranslocoService} from '@ngneat/transloco';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @Component({
-    selector: 'navbar',
-    imports: [RouterModule],
-    templateUrl: './navbar.component.html'
+  selector: 'navbar',
+  imports: [RouterModule, TranslocoModule],
+  templateUrl: './navbar.component.html',
+ /* providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      useValue: {
+        scope: 'navbar',
+        loader: (lang: string) => 
+          import(`../../../assets/i18n/navbar/${lang}.json`).then(m => m.default) 
+      }
+    }
+  ]*/
 })
 export class NavbarComponent {
 
+  currentLanguage: string = 'ca';
+
   constructor(private authService: AuthService,
-    private router: Router
-  ){}
+    private router: Router,
+    private translocoService: TranslocoService
+  ) { }
 
   get login() {
     return this.authService.user;
@@ -34,4 +49,10 @@ export class NavbarComponent {
     }
     return '';
   }
+
+  switchLanguage() {
+    this.currentLanguage ==='ca' ? this.currentLanguage = 'es' : this.currentLanguage = 'ca';
+    this.translocoService.setActiveLang(this.currentLanguage);
+  }
+
 }

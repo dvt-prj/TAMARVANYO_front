@@ -1,5 +1,8 @@
 {
-    
-      "btn.iniSessio": "Iniciar sesión"
-    
+  "navbar": {
+    "btn": {
+      "iniSessio": "Iniciar sesión",
+      "idioma": "Valenciá"
+    }
+  }
 }

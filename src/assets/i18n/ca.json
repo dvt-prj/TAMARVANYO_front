@@ -1,4 +1,8 @@
 {
-        "btn.iniSessio": "Iniciar sessió"
- 
+  "navbar": {
+    "btn": {
+      "iniSessio": "Iniciar sessió",
+      "idioma": "Castellano"
+    }
+  }
 }

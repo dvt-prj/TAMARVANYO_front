@@ -11,6 +11,8 @@ import { UsersEffects } from './store/users/users.effects';
 import { authReducer } from './store/auth/auth.reducer';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { AuthEffects } from './store/auth/auth.effects';
+import { TranslocoHttpLoader } from './transloco-loader';
+import { provideTransloco } from '@ngneat/transloco';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,6 +23,15 @@ export const appConfig: ApplicationConfig = {
         auth: authReducer
     }),
     provideEffects(UsersEffects, AuthEffects),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }), provideHttpClient(), provideTransloco({
+        config: { 
+          availableLangs: ['es','ca'],
+          defaultLang: 'ca',
+          // Remove this option if your application doesn't support changing language in runtime.
+          reRenderOnLangChange: true,
+          prodMode: !isDevMode(),
+        },
+        loader: TranslocoHttpLoader
+      })
 ]
 };
