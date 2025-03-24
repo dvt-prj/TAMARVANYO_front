@@ -31,7 +31,7 @@ export class UserFormComponent implements OnInit {
       this.user = { ...state.user }; // Assigning user from the state            
     });
   }
-
+//test
   ngOnInit(): void {
     this.store.dispatch(resetUser()); // Dispatching action to reset the user state
 
