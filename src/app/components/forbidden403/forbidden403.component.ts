@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-
+import { TranslocoModule } from '@ngneat/transloco';
 @Component({
-    selector: 'app-forbidden403',
-    imports: [],
+    selector: 'forbidden403',
+    imports: [TranslocoModule],
     templateUrl: './forbidden403.component.html'
 })
 export class Forbidden403Component {

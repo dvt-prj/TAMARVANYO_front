@@ -8,16 +8,6 @@ import { TranslocoModule } from '@ngneat/transloco';
   selector: 'navbar',
   imports: [RouterModule, TranslocoModule],
   templateUrl: './navbar.component.html',
- /* providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: {
-        scope: 'navbar',
-        loader: (lang: string) => 
-          import(`../../../assets/i18n/navbar/${lang}.json`).then(m => m.default) 
-      }
-    }
-  ]*/
 })
 export class NavbarComponent {
 

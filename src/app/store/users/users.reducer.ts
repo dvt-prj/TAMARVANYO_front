@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { User } from "../../models/user";
-import { addSuccess, find, findAll, findAllPageable, removeSuccess, resetUser, setErrors, setPaginator, updateSuccess } from "./users.actions";
+import { addSuccess, find, findAll, findAllPageable, findByUserName, removeSuccess, resetUser, setErrors, setPaginator, updateSuccess } from "./users.actions";
 
 const users: User[] = [];
 const user: User = new User();
@@ -12,6 +12,7 @@ export const usersReducer = createReducer(
         errors: {},
         loading: true,
     },
+
     on(resetUser, (state) => ({
         users: state.users,
         paginator: state.paginator,
@@ -29,7 +30,7 @@ export const usersReducer = createReducer(
     )),
     on(findAllPageable, (state, { users, paginator }) => ({
         users: [...users],
-        paginator: {... paginator},
+        paginator: { ...paginator },
         user: state.user,
         errors: state.errors,
         loading: false
@@ -39,6 +40,13 @@ export const usersReducer = createReducer(
         users: state.users,
         paginator: state.paginator,
         user: state.users.find(user => user.id == id) || new User(),
+        errors: state.errors,
+        loading: state.loading
+    })),
+    on(findByUserName, (state, { user }) => ({
+        users: state.users,
+        paginator: state.paginator,
+        user: {...user},
         errors: state.errors,
         loading: state.loading
     })),
@@ -59,7 +67,7 @@ export const usersReducer = createReducer(
     on(updateSuccess, (state, { userUpdated }) => ({
         users: state.users.map(u => (u.id == userUpdated.id) ? { ...userUpdated } : u),
         paginator: state.paginator,
-        user: {... user},
+        user: {...userUpdated},
         errors: {},
         loading: state.loading
     })),

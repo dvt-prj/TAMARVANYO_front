@@ -62,7 +62,7 @@ export class AuthEffects {
     loginSuccessFinal$ = createEffect(() => this.actions$.pipe(
         ofType(loginSuccessFinal),
         tap(() => {
-            this.router.navigate(['/users']);
+            this.router.navigate(['/welcome']);
         })
     ), {dispatch: false})
 

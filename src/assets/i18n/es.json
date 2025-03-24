@@ -1,8 +1,36 @@
 {
   "navbar": {
+    "inici":"Inicio",
     "btn": {
       "iniSessio": "Iniciar sesión",
-      "idioma": "Valenciá"
+      "idioma": "Valencià"
     }
+  },
+  "auth": {
+    "form": {
+      "nomUsuari": "Nombre usuario",
+      "contrasenya": "Cotntraseña"
+    },"btn": {
+      "accedir": "Acceder"
+     
+    }
+  },
+  "userform": {    
+    "form": {
+      "nom": "Nombre",
+      "primerCognom": "Primer apellido",
+      "segonCognom": "Segundo apellido",
+      "correu": "Correo electrónico",
+      "nomUsuari": "Nombre usuario",
+      "isAdmin": "Es administrador?"
+    },"btn": {
+      "desar": "Guardar"     ,
+      "actualitzar": "Actualizar"     
+    }
+  },
+  "forbidden403": {
+    "error": "Acceso no permitido: no tienes permisos para acceder a este recurso!"
   }
 }
+  
+

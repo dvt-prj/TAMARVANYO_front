@@ -11,8 +11,6 @@ import { BACKEND_URL } from '../config/config';
 export class AuthService {
 
   private url: string = BACKEND_URL + '/login';
-
-
   private _user: any;
 
   constructor(

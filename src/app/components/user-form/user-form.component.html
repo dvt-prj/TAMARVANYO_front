@@ -1,138 +1,67 @@
-<div class="card">
-    <div class="card-content">
-        <div class="card-header">
-            <h5 class="card-title">Form {{(user.id > 0)? 'Update': 'Create'}} User</h5>
+<div class="m-6">
+    <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
+        <div class="grid gap-6 mb-6 md:grid-cols-3">
+            <div>
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-blue-950">{{
+                    'userform.form.nom' | transloco}}</label>
+                <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+             focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+              dark:focus:border-blue-500" placeholder="{{ 'userform.form.nom' | transloco}}" name="first_name"
+                    [(ngModel)]="user.name" #name="ngModel" required />
+            </div>
+            <div>
+                <label for="lastname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-blue-950">{{
+                    'userform.form.primerCognom' | transloco}}</label>
+                <input type="text" id="lastname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+             focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+              dark:focus:border-blue-500" placeholder="{{ 'userform.form.primerCognom' | transloco}}" name="lastname"
+                    [(ngModel)]="user.lastname" #lastname="ngModel" required />
+            </div>
+            <div>
+                <label for="lastname2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-blue-950">{{
+                    'userform.form.segonCognom' | transloco}}</label>
+                <input type="text" id="lastname2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+             focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+              dark:focus:border-blue-500" placeholder="{{ 'userform.form.segonCognom' | transloco}}" name="lastname2"
+                    [(ngModel)]="user.lastname2" #lastname2="ngModel" />
+
+            </div>
         </div>
-        <div class="card-body">
-
-            <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
-
-                <div>
-                    <input placeholder="Name" name="name" [(ngModel)]="user.name" class="form-control my-2"
-                        #name="ngModel">
-
-                    @if (errors?.name) {
-                    <div class="text-danger">{{ errors.name }}</div>
-                    }
-
-                    <!-- @if (name.invalid && (name.dirty || name.touched)) {
-                        @if(name.errors!['required']){
-                        <div class="text-danger">
-                            Nombre es requerido
-                        </div>
-                        }
-                        } -->
-                </div>
-                <div>
-                    <input placeholder="Lastname" name="lastname" [(ngModel)]="user.lastname" class="form-control my-2"
-                        #lastname="ngModel"> <!-- required -->
-                    @if (errors?.lastname) {
-                    <div class="text-danger">{{ errors.lastname }}</div>
-                    }
-                    <!-- @if (lastname.invalid && (lastname.dirty || lastname.touched)) {
-                        @if(lastname.errors!['required']){
-                        <div class="text-danger">
-                            El lastname es requerido
-                        </div>
-                        }
-                        } -->
-                </div>
-                <div>
-                    <input placeholder="Lastname2" name="lastname2" [(ngModel)]="user.lastname2" class="form-control my-2"
-                        #lastname2="ngModel"> <!-- required -->
-                    @if (errors?.lastname2) {
-                    <div class="text-danger">{{ errors.lastname2 }}</div>
-                    }
-                    <!-- @if (lastname.invalid && (lastname.dirty || lastname.touched)) {
-                        @if(lastname.errors!['required']){
-                        <div class="text-danger">
-                            El lastname es requerido
-                        </div>
-                        }
-                        } -->
-                </div>
-
-                <div>
-                    <input placeholder="Email" name="email" [(ngModel)]="user.email" class="form-control my-2"
-                        type="email" #email="ngModel"> <!-- required email -->
-                    @if (errors?.email) {
-                        <div class="text-danger">{{ errors.email }}</div>
-                    }
-
-                    <!-- @if (email.invalid && (email.dirty || email.touched)) {
-                        @if(email.errors!['required']){
-                        <div class="text-danger">
-                            El email es requerido
-                        </div>
-                        }
-                        @if(email.errors!['email']){
-                        <div class="text-danger">
-                            El email no tiene formato correcto!
-                        </div>
-                        }
-                        } -->
-                </div>
-                <div>
-                    <input placeholder="Username" name="username" [(ngModel)]="user.username" class="form-control my-2"
-                        #username="ngModel"> <!-- required minlength="8" -->
-                        @if (errors?.username) {
-                        <div class="text-danger">{{ errors.username }}</div>
-                        }
-
-                        <!-- @if (username.invalid && (username.dirty || username.touched)) {
-                    @if(username.errors!['required']){
-                    <div class="text-danger">
-                        El username es requerido
-                    </div>
-                    }
-                    @if(username.errors!['minlength']){
-                    <div class="text-danger">
-                        Username debe de tener al menos 8 caracteres!
-                    </div>
-                    }
-                    } -->
-                </div>
-                @if(user.id == 0){
-                    <div>
-                        <input placeholder="Password" name="password" type="password" [(ngModel)]="user.password"
-                            class="form-control my-2" #password="ngModel"> <!-- required minlength="6" -->
-                            @if (errors?.password) {
-                            <div class="text-danger">{{ errors.password }}</div>
-                            }
-                            <!-- @if (password.invalid && (password.dirty || password.touched)) {
-                        @if(password.errors!['required']){
-                        <div class="text-danger">
-                            El password es requerido
-                        </div>
-                        }
-                        @if(password.errors!['minlength']){
-                        <div class="text-danger">
-                            Password debe de tener al menos 6 caracteres!
-                        </div>
-                        }
-                        } -->
-                    </div>
-                }
-                <div class="form-check my-2">
-                    <input type="checkbox"
-                    [(ngModel)]="user.admin"
-                    name="admin"
-                    class="form-check-input">
-                    <label class="form-check-label">Admin</label>
-                </div>
-- {{ user.admin }} -{{ user.password }} 
-                <div>
-                    <button type="submit" class="btn btn-primary m-2"> <!-- [disabled]="userForm.invalid" -->
-                        {{(user.id > 0)? 'Update': 'Create'}}
-                    </button>
-
-                    <button type="button" class="btn btn-secondary my-2" (click)="onClear(userForm)">
-                        Clear
-                    </button>
-                </div>
-
-            </form>
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-blue-950">{{
+                    'userform.form.correu' | transloco}}</label>
+                <input type="text" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+             focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+              dark:focus:border-blue-500" placeholder="{{ 'userform.form.correu' | transloco}}" name="email"
+                    [(ngModel)]="user.email" #email="ngModel" required />
+            </div>
+            <div>
+                <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-blue-950">{{
+                    'userform.form.nomUsuari' | transloco}}</label>
+                <input type="text" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+             focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+              dark:focus:border-blue-500" placeholder="{{ 'userform.form.nomUsuari' | transloco}}" name="username"
+                    [(ngModel)]="user.username" #username="ngModel" required />
+            </div>
         </div>
+        @if(user.admin){
+        <div class="grid gap-6 mb-6 md:grid-cols-1">
+            <div class="flex items-start mb-6">
+                <div class="flex items-center h-5">
+                    <input id="admin" id="admin" type="checkbox" checked="{{user.admin}}" [(ngModel)]="user.admin"
+                        #username="ngModel" name="admin" class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300
+                         dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+                </div>
+                <label for="remember" class="ml-3 block mb-2 text-sm font-medium text-gray-900 dark:text-blue-950">{{
+                    'userform.form.isAdmin' | transloco}}</label>
+            </div>
+        </div>
+        }
 
-    </div>
+        <button type="submit"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg 
+        text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{
+            'userform.btn.actualitzar' | transloco}}</button>
+    </form>
 </div>

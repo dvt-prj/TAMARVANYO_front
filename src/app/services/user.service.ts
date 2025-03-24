@@ -27,7 +27,7 @@ export class UserService {
     return this.http.get<User>(`${this.url}/${id}`);
   }
 
-  findByUserName(userName: string): Observable<User> {
+  findByUserName(userName: string): Observable<User> {        
     return this.http.get<User>(`${this.url}/user/${userName}`);
   }
 

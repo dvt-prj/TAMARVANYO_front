@@ -2,14 +2,15 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../models/user';
 import Swal from 'sweetalert2';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+
 import { Store } from '@ngrx/store';
 import { login } from '../../store/auth/auth.actions';
 
+import { TranslocoModule } from '@ngneat/transloco';
+
 @Component({
     selector: 'app-auth',
-    imports: [FormsModule],
+    imports: [FormsModule, TranslocoModule],
     templateUrl: './auth.component.html'
 })
 export class AuthComponent {
@@ -32,4 +33,6 @@ export class AuthComponent {
       this.store.dispatch(login({ username: this.user.username, password: this.user.password }));
     }
   }
+
+  
 }

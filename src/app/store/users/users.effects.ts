@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { UserService } from "../../services/user.service";
-import { add, addSuccess, findAll, findAllPageable, load, remove, removeSuccess, setErrors, setPaginator, update, updateSuccess } from "./users.actions";
+import { add, addSuccess,  findAllPageable, findByUserName, load, loadUser, remove, removeSuccess, setErrors,  update, updateSuccess } from "./users.actions";
 import { EMPTY, catchError, exhaustMap, map, of, tap } from "rxjs";
 import { User } from "../../models/user";
 import Swal from "sweetalert2";
@@ -20,6 +20,20 @@ export class UsersEffects {
                         const paginator = pageable;
 
                         return findAllPageable({ users, paginator });
+                    }),
+                    catchError((error) => of(error))
+                )
+            )
+        )
+    );
+
+    loadUser$ = createEffect(
+        () => this.actions$.pipe(
+            ofType(loadUser),
+            exhaustMap(action => this.service.findByUserName(action.username)
+                .pipe(
+                    map(user => {
+                        return findByUserName({ user })
                     }),
                     catchError((error) => of(error))
                 )
@@ -80,7 +94,7 @@ export class UsersEffects {
     updateSuccessUser$ = createEffect(() => this.actions$.pipe(
         ofType(updateSuccess),
         tap(() => {
-            this.router.navigate(['/users']);
+            this.router.navigate(['/user/info']);
 
             Swal.fire({
                 title: "Actualizado!",

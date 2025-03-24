@@ -1,8 +1,35 @@
 {
   "navbar": {
+    "inici": "Inici",
     "btn": {
       "iniSessio": "Iniciar sessió",
       "idioma": "Castellano"
     }
+  },
+  "auth": {
+    "form": {
+      "nomUsuari": "Nom usuari",
+      "contrasenya": "Cotntrasenya"
+    },
+    "btn": {
+      "accedir": "Accedir"
+    }
+  },
+  "userform": {
+    "form": {
+      "nom": "Nom",
+      "primerCognom": "Primer cognom",
+      "segonCognom": "Segon cognom",
+      "correu": "Correu electrónic",
+      "nomUsuari": "Nom usuari",
+      "isAdmin": "És administrador?"
+    },
+    "btn": {
+      "desar": "Desar",
+      "actualitzar": "Actualitzar"
+    }
+  },
+  "forbidden403": {
+    "error": "Accés no permés: no té permisos per accedir a aquest recurs."
   }
 }
