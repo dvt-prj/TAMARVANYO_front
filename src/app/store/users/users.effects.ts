@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { UserService } from "../../services/user.service";
-import { add, addSuccess,  findAllPageable, findByUserName, load, loadUser, remove, removeSuccess, setErrors,  update, updateSuccess } from "./users.actions";
-import { EMPTY, catchError, exhaustMap, map, of, tap } from "rxjs";
+import { add, addSuccess, changePass, findAllPageable, findByUserName, load, loadUser, remove, removeSuccess, setErrors, setErrorsSimple, update, updateSuccess } from "./users.actions";
+import { catchError, exhaustMap, map, of, tap } from "rxjs";
 import { User } from "../../models/user";
 import Swal from "sweetalert2";
 import { Router } from "@angular/router";
@@ -36,6 +36,22 @@ export class UsersEffects {
                         return findByUserName({ user })
                     }),
                     catchError((error) => of(error))
+                )
+            )
+        )
+    );
+
+    changePass$ = createEffect(
+        () => this.actions$.pipe(
+            ofType(changePass),
+            exhaustMap(action => this.service.changePassword(action.idUser, action.currentPass, action.newPass)
+                .pipe(
+                    map(user => {
+                        return findByUserName({ user })
+                    }),
+                    //catchError((error) => of(error))
+                    catchError(error => (error.status == 400) ? of(setErrorsSimple({ errors: error.error })) : of(error)
+                    )
                 )
             )
         )
@@ -90,7 +106,7 @@ export class UsersEffects {
             });
         })
     ), { dispatch: false })
-    
+
     updateSuccessUser$ = createEffect(() => this.actions$.pipe(
         ofType(updateSuccess),
         tap(() => {
@@ -102,7 +118,7 @@ export class UsersEffects {
                 icon: "success"
             });
         })
-    ), {dispatch: false})
+    ), { dispatch: false })
 
     removeSuccessUser$ = createEffect(() => this.actions$.pipe(
         ofType(removeSuccess),
@@ -121,5 +137,5 @@ export class UsersEffects {
         private router: Router,
         private actions$: Actions,
         private service: UserService
-    ){}
+    ) { }
 }

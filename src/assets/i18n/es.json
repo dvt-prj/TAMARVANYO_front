@@ -25,7 +25,24 @@
       "isAdmin": "Es administrador?"
     },"btn": {
       "desar": "Guardar"     ,
-      "actualitzar": "Actualizar"     
+      "actualitzar": "Actualizar",
+      "canviarPass": "Cambiar contraseña"     
+    },
+    "pass": {
+      "form": {
+        "titol": "Cambio contraseña acceso",
+        "current1": "Contrasenya actual",        
+        "passNew": "Nueva contraseña",
+        "passNew2": "Repetir nueva contraseña",
+        "passRequisits": "La nueva contraseña tiene que contener letras, números, símbolos (!%?.,-_), y un tamaño mínimo de 8 caracteres."
+      },
+      "btn": {
+        "canviar": "Cambiar contraseña"
+      },
+      "error": {
+        "noMatches": "Las contraseñas no coinciden.",
+        "newPass": "La contraseña nueva no supera mínimo de seguridad."
+      }
     }
   },
   "forbidden403": {

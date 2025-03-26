@@ -26,7 +26,24 @@
     },
     "btn": {
       "desar": "Desar",
-      "actualitzar": "Actualitzar"
+      "actualitzar": "Actualitzar",
+      "canviarPass": "Canviar contrasenya"
+    },
+    "pass": {
+      "form": {
+        "titol": "Canvi contrasenya accés",
+        "current1": "Contrasenya actual",      
+        "passNew": "Nova contrasenya",
+        "passNew2": "Repetir nova contrasenya",
+        "passRequisits": "La nova contrasenya ha de contindre lletres, números, símbols (!%?.,-_), i una grandària mínima de 8 caràcters."
+      },
+      "btn": {
+        "canviar": "Canviar contrasenya"
+      },
+      "error": {
+        "noMatches": "LLes contrasenyes no coincideixen.",
+        "newPass": "La contrasenya nova no supera mesures mínimes de seguretat."
+      }
     }
   },
   "forbidden403": {

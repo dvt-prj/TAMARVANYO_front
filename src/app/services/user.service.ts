@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
+
 import { Observable, map} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { BACKEND_URL } from '../config/config';
+import { UserPass } from '../models/UserPass';
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +45,10 @@ export class UserService {
     return this.http.delete<number>(`${this.url}/${id}`).pipe(
       map(() => id)
     );
+  }
+
+  changePassword(idUser: number, currentPass: string, newPass: string): Observable<User>{
+    const userPass: UserPass = { idUser, currentPass, newPass };
+    return this.http.put<User>(`${this.url}/changePassword`,userPass);
   }
 }

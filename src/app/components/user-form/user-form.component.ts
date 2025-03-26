@@ -1,21 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { User } from '../../models/user';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { add, find,  loadUser, resetUser, update } from '../../store/users/users.actions';
+import { add, changePass, find, loadUser, resetUser, update } from '../../store/users/users.actions';
 import { TranslocoModule } from '@ngneat/transloco';
 import { AuthService } from '../../services/auth.service';
+import { Modal } from 'flowbite';
 
 @Component({
   selector: 'user-form',
-  imports: [FormsModule, TranslocoModule],
+  imports: [FormsModule, TranslocoModule, CommonModule],
   templateUrl: './user-form.component.html'
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent implements OnInit, AfterViewInit {
 
   user: User; // User object to bind to the form  
-  errors: any = {}; // Object to hold form errors
+  errors!: any; // Object to hold form errors
+
+  passwordsMismatch: boolean = false;
+  newPasswordUgly: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -31,7 +36,19 @@ export class UserFormComponent implements OnInit {
       this.user = { ...state.user }; // Assigning user from the state            
     });
   }
-//test
+
+  private modalInstance: Modal | null = null;
+
+  ngAfterViewInit() {
+    // Ensure the modal is initialized after the view is loaded
+    const modalElement = document.getElementById('authentication-modal');
+
+    if (modalElement) {
+      this.modalInstance = new Modal(modalElement);
+    }
+  }
+
+  //test
   ngOnInit(): void {
     this.store.dispatch(resetUser()); // Dispatching action to reset the user state
 
@@ -41,13 +58,13 @@ export class UserFormComponent implements OnInit {
 
       if (id > 0) {
         this.store.dispatch(find({ id })); // Dispatching action to find the user by ID
-      } else {        
-        this.store.dispatch(loadUser({username:this.authService.user.user.username}));
+      } else {
+        this.store.dispatch(loadUser({ username: this.authService.user.user.username }));
       }
     });
   }
 
-  onSubmit(userForm: NgForm): void {    
+  onSubmit(userForm: NgForm): void {
     // Dispatching update or add action based on the user ID
     if (this.user.id > 0) {
       this.store.dispatch(update({ userUpdated: this.user }));
@@ -57,10 +74,61 @@ export class UserFormComponent implements OnInit {
 
   }
 
+  onChangePassword(passForm: NgForm): void {
+    const currentPassword = passForm.value.current1;    
+    const newPassword = passForm.value.newPass;
+    const confirmPassword = passForm.value.newPass2;
+
+
+    if (newPassword !== confirmPassword) {
+      this.passwordsMismatch = true;
+      return;
+    }
+    this.passwordsMismatch = false;
+    if (!this.isValidPassword(newPassword)) {
+      this.newPasswordUgly = true;
+
+      return;
+    }
+    this.newPasswordUgly = false;
+
+    // Call a service to update the password    
+    this.store.dispatch(changePass({ idUser: this.user.id, currentPass: currentPassword, newPass: newPassword }));
+  }
+
+  /**
+  * Validates password: 8-20 characters, at least one letter, one number, and one symbol.
+  */
+  isValidPassword(password: string): boolean {
+    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!%?&.,-_])[A-Za-z\d!%?&.,-_]{8,20}$/;
+    return passwordPattern.test(password);
+  }
+
+  resetFormPass(passForm: NgForm): void {
+    console.log("resetFormPass");
+  /*  passForm.reset(); // Resetting the form
+    passForm.resetForm(); // Resetting the form state
+    */
+  }
+
   onClear(userForm: NgForm): void {
     this.store.dispatch(resetUser()); // Dispatching action to reset the user state
     userForm.reset(); // Resetting the form
     userForm.resetForm(); // Resetting the form state
+  }
+
+  openModal() {
+    if (this.modalInstance) {
+      this.modalInstance.show();
+    } else {
+      console.error('Modal instance not initialized');
+    }
+  }
+
+  closeModal() {
+    if (this.modalInstance) {
+      this.modalInstance.hide();
+    }
   }
 
 }
