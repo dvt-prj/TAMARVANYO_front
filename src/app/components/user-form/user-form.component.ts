@@ -1,4 +1,4 @@
-import { Component, OnInit,AfterViewInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit  } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { User } from '../../models/user';
@@ -14,7 +14,9 @@ import { Modal } from 'flowbite';
   imports: [FormsModule, TranslocoModule, CommonModule],
   templateUrl: './user-form.component.html'
 })
-export class UserFormComponent implements OnInit, AfterViewInit {
+export class UserFormComponent implements OnInit,AfterViewInit  {
+
+  private modal!: Modal; // Modal instance
 
   user: User; // User object to bind to the form  
   errors!: any; // Object to hold form errors
@@ -37,18 +39,32 @@ export class UserFormComponent implements OnInit, AfterViewInit {
     });
   }
 
-  private modalInstance: Modal | null = null;
 
   ngAfterViewInit() {
-    // Ensure the modal is initialized after the view is loaded
-    const modalElement = document.getElementById('authentication-modal');
+    const modalElement = document.getElementById('changePass-modal');
 
     if (modalElement) {
-      this.modalInstance = new Modal(modalElement);
+      this.modal = new Modal(modalElement);
+
+      // Open modal on button click
+      document.getElementById('openModalBtn')?.addEventListener('click', () => {
+        console.log('✅ show');
+        this.modal.show();
+      });
+
+      // Close modal on button click
+      document.getElementById('closeModalBtn')?.addEventListener('click', () => {
+        console.log('✅ hide');
+        this.modal.hide();
+      });
+
+      console.log('✅ Modal initialized successfully');
+    } else {
+      console.error('❌ Modal element not found');
     }
   }
 
-  //test
+ 
   ngOnInit(): void {
     this.store.dispatch(resetUser()); // Dispatching action to reset the user state
 
@@ -106,29 +122,15 @@ export class UserFormComponent implements OnInit, AfterViewInit {
 
   resetFormPass(passForm: NgForm): void {
     console.log("resetFormPass");
-  /*  passForm.reset(); // Resetting the form
+    passForm.reset(); // Resetting the form
     passForm.resetForm(); // Resetting the form state
-    */
+    
   }
 
   onClear(userForm: NgForm): void {
     this.store.dispatch(resetUser()); // Dispatching action to reset the user state
     userForm.reset(); // Resetting the form
     userForm.resetForm(); // Resetting the form state
-  }
-
-  openModal() {
-    if (this.modalInstance) {
-      this.modalInstance.show();
-    } else {
-      console.error('Modal instance not initialized');
-    }
-  }
-
-  closeModal() {
-    if (this.modalInstance) {
-      this.modalInstance.hide();
-    }
   }
 
 }

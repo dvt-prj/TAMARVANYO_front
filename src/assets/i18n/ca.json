@@ -41,7 +41,7 @@
         "canviar": "Canviar contrasenya"
       },
       "error": {
-        "noMatches": "LLes contrasenyes no coincideixen.",
+        "noMatches": "Les contrasenyes no coincideixen.",
         "newPass": "La contrasenya nova no supera mesures mínimes de seguretat."
       }
     }
