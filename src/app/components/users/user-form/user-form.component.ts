@@ -1,12 +1,12 @@
 import { Component, OnInit,AfterViewInit  } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { User } from '../../models/user';
+import { User } from '../../../models/user';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { add, changePass, find, loadUser, resetUser, update } from '../../store/users/users.actions';
+import { add, changePass, find, loadUser, resetUser, update } from '../../../store/users/users.actions';
 import { TranslocoModule } from '@ngneat/transloco';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { Modal } from 'flowbite';
 
 @Component({

@@ -1,6 +1,7 @@
 {
   "navbar": {
     "inici":"Inicio",
+    "usuaris": "Usuarios",
     "btn": {
       "iniSessio": "Iniciar sesión",
       "idioma": "Valencià"
@@ -14,6 +15,9 @@
       "accedir": "Acceder"
      
     }
+  },
+  "listUsers":{
+    "xxx":"xxx"
   },
   "userform": {    
     "form": {

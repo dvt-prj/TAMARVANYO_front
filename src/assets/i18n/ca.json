@@ -1,6 +1,7 @@
 {
   "navbar": {
     "inici": "Inici",
+    "usuaris": "Usuaris",
     "btn": {
       "iniSessio": "Iniciar sessió",
       "idioma": "Castellano"
@@ -14,6 +15,9 @@
     "btn": {
       "accedir": "Accedir"
     }
+  },
+  "listUsers":{
+    "xxx":"xxx"
   },
   "userform": {
     "form": {

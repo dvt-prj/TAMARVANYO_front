@@ -8,6 +8,7 @@ import { TranslocoModule } from '@ngneat/transloco';
   selector: 'navbar',
   imports: [RouterModule, TranslocoModule],
   templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
 
