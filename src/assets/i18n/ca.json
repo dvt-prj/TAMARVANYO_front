@@ -26,7 +26,9 @@
       "segonCognom": "Segon cognom",
       "correu": "Correu electrónic",
       "nomUsuari": "Nom usuari",
-      "isAdmin": "És administrador?"
+      "isAdmin": "És administrador?",      
+      "pass": "Contrasenya",
+      "rpass": "Repetir contrasenya"
     },
     "btn": {
       "desar": "Desar",

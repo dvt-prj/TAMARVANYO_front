@@ -8,6 +8,7 @@ export class User {
     email!: string;
     username!: string;
     password!: string;
+    rpassword!: string;
     admin: boolean=false;
     
 }

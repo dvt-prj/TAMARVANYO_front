@@ -29,7 +29,17 @@
                 <th scope="col" class="px-6 py-3">
                     usuari
                 </th>
+                @if(admin){
+                <th scope="col" class="px-6 py-3">
 
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none 
+                        focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600
+                         dark:hover:bg-blue-700 dark:focus:ring-blue-800  ml-2" [routerLink]="['/users/create']">
+                        <i class="fa-solid fa-user-plus"></i>
+                    </button>
+
+                </th>
+                }
             </tr>
         </thead>
         <tbody>
@@ -54,6 +64,20 @@
                 <td class="px-6 py-4">
                     {{user.username}}
                 </td>
+                @if(admin){
+                <td class="px-6 py-4">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none
+    focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600
+     dark:hover:bg-blue-700 dark:focus:ring-blue-800  ml-2" [routerLink]="['/users/edit',user.id]"> <i
+                            class="fa-solid fa-user-edit"></i>
+                    </button>
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none
+    focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600
+     dark:hover:bg-blue-700 dark:focus:ring-blue-800  ml-2" (click)="removeUser(user.id)"> <i
+                            class="fa-solid fa-user-minus"></i>
+                    </button>
+                </td>
+                }
             </tr>
             }
         </tbody>
@@ -61,11 +85,4 @@
     <paginator [paginator]="paginator" [url]="'/users/page'" />
 </div>
 
-}
-@if(admin){
-    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none mt-8
-    focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600
-     dark:hover:bg-blue-700 dark:focus:ring-blue-800  ml-2" [routerLink]="['/users/create']">
-     <i class="fa-solid fa-user-plus"></i>
-</button>
 }

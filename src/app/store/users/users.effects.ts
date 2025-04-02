@@ -97,7 +97,7 @@ export class UsersEffects {
     addSuccessUser$ = createEffect(() => this.actions$.pipe(
         ofType(addSuccess),
         tap(() => {
-            this.router.navigate(['/users']);
+            this.router.navigate(['/users/page/',0]);
 
             Swal.fire({
                 title: "Creado nuevo usuario!",

@@ -1,4 +1,4 @@
-import { Component, OnInit,AfterViewInit  } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../models/user';
@@ -14,15 +14,22 @@ import { Modal } from 'flowbite';
   imports: [FormsModule, TranslocoModule, CommonModule],
   templateUrl: './user-form.component.html'
 })
-export class UserFormComponent implements OnInit,AfterViewInit  {
+export class UserFormComponent implements OnInit, AfterViewInit {
 
   private modal!: Modal; // Modal instance
 
   user: User; // User object to bind to the form  
   errors!: any; // Object to hold form errors
 
+  userNou !: boolean;
+
+
   passwordsMismatch: boolean = false;
   newPasswordUgly: boolean = false;
+
+
+  passwordsMismatchMain: boolean = false;
+  newPasswordUglyMain: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -64,16 +71,21 @@ export class UserFormComponent implements OnInit,AfterViewInit  {
     }
   }
 
- 
+
   ngOnInit(): void {
     this.store.dispatch(resetUser()); // Dispatching action to reset the user state
 
     // Subscribing to route parameters to get the user ID
     this.route.paramMap.subscribe(params => {
       const id: number = +(params.get('id') || '0'); // Getting the user ID from the route
-      console.log("params: "+params);   
-      if (id > 0) {
-        console.log("Cargamos por id");        
+      const currentUrl = this.route.snapshot.url.map(segment => segment.path).join('/');
+      this.userNou = false;
+      if (currentUrl === 'users/create') {
+        this.userNou = true;
+        //     this.store.dispatch(resetUser());
+        console.log("Cargamos limpio");
+      } else if (id > 0) {
+        console.log("Cargamos por id");
         this.store.dispatch(find({ id })); // Dispatching action to find the user by ID
       } else {
         console.log("Cargamos por username");
@@ -83,17 +95,37 @@ export class UserFormComponent implements OnInit,AfterViewInit  {
   }
 
   onSubmit(userForm: NgForm): void {
-    // Dispatching update or add action based on the user ID
-    if (this.user.id > 0) {
-      this.store.dispatch(update({ userUpdated: this.user }));
+
+    //si es nova alta, comprovem pass
+    if (this.userNou) {
+      const password = userForm.value.password;
+      const confirmPassword = userForm.value.rpassword;
+      console.log(userForm.value.admin);
+      if (password !== confirmPassword) {
+        this.passwordsMismatchMain = true;
+        return;
+      }
+      this.passwordsMismatchMain = false;
+      if (!this.isValidPassword(password)) {
+        this.newPasswordUglyMain = true;
+
+        return;
+      }
+      this.newPasswordUglyMain = false;
+     // this.store.dispatch(add({ userNew: this.user }));
     } else {
-      this.store.dispatch(add({ userNew: this.user }));
+      // Dispatching update or add action based on the user ID
+      if (this.user.id > 0) {
+        this.store.dispatch(update({ userUpdated: this.user }));
+      } else {
+        this.store.dispatch(add({ userNew: this.user }));
+      }
     }
 
   }
 
   onChangePassword(passForm: NgForm): void {
-    const currentPassword = passForm.value.current1;    
+    const currentPassword = passForm.value.current1;
     const newPassword = passForm.value.newPass;
     const confirmPassword = passForm.value.newPass2;
 
@@ -126,7 +158,11 @@ export class UserFormComponent implements OnInit,AfterViewInit  {
     console.log("resetFormPass");
     passForm.reset(); // Resetting the form
     passForm.resetForm(); // Resetting the form state
-    
+
+  }
+
+  isAdmin() {
+    return this.authService.isAdmin;
   }
 
   onClear(userForm: NgForm): void {

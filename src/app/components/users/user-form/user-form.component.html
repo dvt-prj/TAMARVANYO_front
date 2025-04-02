@@ -2,7 +2,7 @@
     <form class="max-w-3xl mx-auto" (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
         <div class="grid gap-6 mb-6 md:grid-cols-3">
             <div>
-                
+
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
                     'userform.form.nom' | transloco}}</label>
                 <input type="text" id="name"
@@ -37,6 +37,8 @@
              focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
               dark:focus:border-blue-500" placeholder="{{ 'userform.form.correu' | transloco}}" name="email"
                     [(ngModel)]="user.email" #email="ngModel" required />
+                    <p *ngIf="errors  && errors.email" class="mt-2 text-sm text-red-600 dark:text-red-500">
+                        <span class="font-medium">Error:</span> {{ errors.email }}</p>
             </div>
             <div>
                 <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
@@ -45,14 +47,46 @@
              focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
               dark:focus:border-blue-500" placeholder="{{ 'userform.form.nomUsuari' | transloco}}" name="username"
                     [(ngModel)]="user.username" #username="ngModel" required />
+                    <p *ngIf="errors  && errors.username" class="mt-2 text-sm text-red-600 dark:text-red-500">
+                        <span class="font-medium">Error:</span> {{ errors.username }}</p>
             </div>
         </div>
-        @if(user.admin){
+        @if(userNou){
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+                <label for="pass" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
+                    'userform.form.pass' | transloco}}</label>
+                <input type="password" id="pass" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+             focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+              dark:focus:border-blue-500" placeholder="••••••••" name="password" [(ngModel)]="user.password"
+                    #password="ngModel" required />
+            </div>
+            <div>
+                <label for="rpassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
+                    'userform.form.rpass' | transloco}}</label>
+                <input type="password" id="rpassword" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+             focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+              dark:focus:border-blue-500" placeholder="••••••••" name="rpassword" [(ngModel)]="user.rpassword"
+                    #rpassword="ngModel" required />
+            </div>
+
+        </div>
+        <div *ngIf="userNou" class="grid gap-6 mb-6 md:grid-cols-1">
+            <p *ngIf="passwordsMismatchMain" class="mt-2 text-sm text-red-600 dark:text-red-500"><span
+                    class="font-medium">
+                    {{ 'userform.pass.error.noMatches' | transloco}}</span></p>
+            <p *ngIf="newPasswordUglyMain" class="mt-2 text-sm text-red-600 dark:text-red-500"><span
+                    class="font-medium"></span> {{ 'userform.pass.error.newPass' | transloco}}</p>
+        </div>
+        }
+        <p *ngIf="errors  && errors.error" class="mt-2 text-sm text-red-600 dark:text-red-500">
+            <span class="font-medium">Error:</span> {{ errors.error }}</p>
+        @if(isAdmin()){
         <div class="grid gap-6 mb-6 md:grid-cols-1 ">
             <div class="flex items-start mb-6">
                 <div class="flex items-center h-5">
                     <input id="admin" id="admin" type="checkbox" checked="{{user.admin}}" [(ngModel)]="user.admin"
-                        #username="ngModel" name="admin" class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300
+                        #admin="ngModel" name="admin" class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300
                          dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
                 </div>
                 <label for="remember" class="ml-3 block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
@@ -61,7 +95,7 @@
         </div>
         }
         <div class="flex space-x-4 ">
-            <button data-modal-target="changePass-modal" data-modal-toggle="changePass-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4
+            <button *ngIf="!userNou" data-modal-target="changePass-modal" data-modal-toggle="changePass-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4
             focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600
              dark:hover:bg-blue-700 dark:focus:ring-blue-800" id="openModalBtn" type="button"
                 (click)="resetFormPass(passForm)">
@@ -70,7 +104,7 @@
             <button type="submit"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg 
             text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                {{ 'userform.btn.actualitzar' | transloco}}</button>
+                {{ userNou ? ('userform.btn.desar' | transloco) : ('userform.btn.actualitzar' | transloco) }}</button>
         </div>
 
     </form>
@@ -78,8 +112,7 @@
 
 
     <!-- Main modal -->
-    <div id="changePass-modal" tabindex="-1" aria-hidden="true"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full 
+    <div id="changePass-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full 
         backdrop-blur-sm">
         <div class="relative p-4 w-full max-w-md max-h-full border-b-blue-950">
             <!-- Modal content -->
@@ -124,11 +157,11 @@
                             <label for="newPass" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
                                 'userform.pass.form.passNew' | transloco}}</label>
                             <input type="password" name="newPass" [(ngModel)]="newPass" #newPass="ngModel" id="newPass"
-                                placeholder="••••••••" 
+                                placeholder="••••••••"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                          focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                 required />
-                        </div>                       
+                        </div>
                         <div>
                             <label for="newPass2"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{

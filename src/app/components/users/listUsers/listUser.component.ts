@@ -63,4 +63,9 @@ export class ListUsersComponent implements OnInit {
   get admin() {
     return this.authService.isAdmin();
   }
+
+  removeUser(idUser: number){
+    console.log("remove " + idUser);
+    
+  }
 }

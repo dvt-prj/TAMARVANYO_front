@@ -32,11 +32,11 @@ export const routes: Routes = [
         component: UserFormComponent,
         canActivate: [authGuardUser]
     },
-    /* {
+     {
          path: 'users/edit/:id',
          component: UserFormComponent,
-         canActivate: [authGuard]
-    },*/
+         canActivate: [authGuardAdmin]
+    },
     {
         path: 'login',
         component: AuthComponent
