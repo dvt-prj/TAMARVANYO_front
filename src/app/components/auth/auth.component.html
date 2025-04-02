@@ -1,6 +1,6 @@
 <form class="max-w-sm mx-auto" (ngSubmit)="onSubmit()">
     <div class="mb-5">
-      <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-blue-950">{{ 'auth.form.nomUsuari' | transloco}}</label>
+      <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ 'auth.form.nomUsuari' | transloco}}</label>
       <input id="username" name="username" 
       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
        focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
@@ -8,7 +8,7 @@
         [(ngModel)]="user.username"/>
     </div>
     <div class="mb-5">
-      <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-blue-950">{{ 'auth.form.contrasenya' | transloco}}</label>
+      <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ 'auth.form.contrasenya' | transloco}}</label>
       <input id="password" type="password" name="password"  [(ngModel)]="user.password"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
        focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400

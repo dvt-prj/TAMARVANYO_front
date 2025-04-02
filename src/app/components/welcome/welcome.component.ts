@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation  } from '@angular/core';
 
 @Component({
   selector: 'welcome',
   imports: [],
-  templateUrl: './welcome.component.html'
+  templateUrl: './welcome.component.html',
+  encapsulation: ViewEncapsulation.None 
 })
 export class WelcomeComponent {
+
+ 
 
 }

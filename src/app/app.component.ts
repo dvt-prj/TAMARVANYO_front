@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserAppComponent } from './components/user-app.component';
+import { TvAppComponent} from './components/tv-app.component';
 import { initFlowbite } from 'flowbite';
 
 @Component({
     selector: 'app-root',
-    imports: [ UserAppComponent],
+    imports: [ TvAppComponent],
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit{

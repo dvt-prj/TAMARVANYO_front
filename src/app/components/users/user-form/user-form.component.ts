@@ -71,10 +71,12 @@ export class UserFormComponent implements OnInit,AfterViewInit  {
     // Subscribing to route parameters to get the user ID
     this.route.paramMap.subscribe(params => {
       const id: number = +(params.get('id') || '0'); // Getting the user ID from the route
-
+      console.log("params: "+params);   
       if (id > 0) {
+        console.log("Cargamos por id");        
         this.store.dispatch(find({ id })); // Dispatching action to find the user by ID
       } else {
+        console.log("Cargamos por username");
         this.store.dispatch(loadUser({ username: this.authService.user.user.username }));
       }
     });

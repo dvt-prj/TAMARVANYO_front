@@ -4,124 +4,68 @@
 </div>
 } @else {
 
-    <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{{title}}</h1>
+<h1 class="mt-8 mb-8 text-xl font-bold text-gray-900 md:text-2xl lg:text-3xl dark:text-white">{{title}}</h1>
 
 
+<div class="overflow-x-auto shadow-md sm:rounded-lg max-w-5xl mx-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Id
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Nom
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Cognom 1
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Cognom 2
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Correu
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    usuari
+                </th>
 
+            </tr>
+        </thead>
+        <tbody>
+            @for (user of users; track $index) {
+            <tr
+                class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{user.id}}
+                </th>
+                <td class="px-6 py-4">
+                    {{user.name}}
+                </td>
+                <td class="px-6 py-4">
+                    {{user.lastname}}
+                </td>
+                <td class="px-6 py-4">
+                    {{user.lastname2}}
+                </td>
+                <td class="px-6 py-4">
+                    {{user.email}}
+                </td>
+                <td class="px-6 py-4">
+                    {{user.username}}
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <paginator [paginator]="paginator" [url]="'/users/page'" />
+</div>
+
+}
 @if(admin){
-<button class="btn btn-primary my-3" [routerLink]="['/users/create']">Crear Usuario</button>
+    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none mt-8
+    focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600
+     dark:hover:bg-blue-700 dark:focus:ring-blue-800  ml-2" [routerLink]="['/users/create']">
+     <i class="fa-solid fa-user-plus"></i>
+</button>
 }
-
-    <div class=" relative overflow-x-auto shadow-md sm:rounded-lg align-middle">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th scope="col" class="px-6 py-3">
-                        Id
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Nom
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Cognom 1
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Cognom 2
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Correu
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        usuari
-                    </th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                @for (user of users; track $index) {
-                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{user.id}}
-                    </th>
-                    <td class="px-6 py-4">
-                        {{user.name}}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{user.lastname}}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{user.lastname2}}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{user.email}}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{user.username}}
-                    </td>
-                </tr>
-            }
-            </tbody>
-        </table>
-        <paginator [paginator]="paginator" [url]="'/users/page'" />
-    </div>
-    
-}
-
-<!--h3>{{title}}</h3>
-
-@if(admin){
-<button class="btn btn-primary my-3" [routerLink]="['/users/create']">Crear Usuario</button>
-}
-
-
-
-@if (users.length == 0) {
-<div class="alert alert-warning">No hay registros en el sistema!</div>
-} @else {
-
-
-<table class="table table-hover table-striped">
-    <thead>
-        <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>lastname</th>
-            <th>lastname2</th>
-            <th>email</th>
-            <th>username</th>
-            @if(admin){
-            <th>remove</th>
-            <th>update</th>
-            }
-        </tr>
-    </thead>
-    <tbody>
-        @for (user of users; track $index) {
-        <tr>
-            <td> {{user.id}} </td>
-            <td> {{user.name}} </td>
-            <td> {{user.lastname}} </td>
-            <td> {{user.lastname2}} </td>
-            <td> {{user.email}} </td>
-            <td> {{user.username}} </td>
-            @if(admin){
-            <td>
-                <button class="btn btn-danger btn-sm" (click)="onRemoveUser(user.id)">
-                    remove
-                </button>
-            </td>
-            <td>
-                <button class="btn btn-info btn-sm" [routerLink]="['/users/edit', user.id]">
-                    update
-                </button>
-            </td>
-            }
-        </tr>
-        }
-    </tbody>
-</table>
-}
-
-<paginator [paginator]="paginator" [url]="'/users/page'" />
-}
--->

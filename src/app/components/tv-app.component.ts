@@ -3,10 +3,10 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 
 @Component({
-    selector: 'user-app',
+    selector: 'tv-app',
     imports: [RouterOutlet, NavbarComponent],
-    templateUrl: './user-app.component.html',
-    styleUrls: ['./user-app.component.css']
+    templateUrl: './tv-app.component.html',
+    styleUrls: ['./tv-app.component.css']
 })
-export class UserAppComponent {}
+export class TvAppComponent {}
 
