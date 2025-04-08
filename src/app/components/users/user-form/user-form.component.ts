@@ -8,6 +8,13 @@ import { add, changePass, find, loadUser, resetUser, update } from '../../../sto
 import { TranslocoModule } from '@ngneat/transloco';
 import { AuthService } from '../../../services/auth.service';
 import { Modal } from 'flowbite';
+import {
+  inputClass,
+  labelClass,
+  errorTextClass,
+  primaryButtonClass,
+  checkboxClass
+} from '../../../../styles/tailwind-classes';
 
 @Component({
   selector: 'user-form',
@@ -23,6 +30,8 @@ export class UserFormComponent implements OnInit, AfterViewInit {
 
   userNou !: boolean;
 
+  labelClass = labelClass;
+  inputClass =inputClass;
 
   passwordsMismatch: boolean = false;
   newPasswordUgly: boolean = false;

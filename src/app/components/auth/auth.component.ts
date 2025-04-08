@@ -2,18 +2,28 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../models/user';
 import Swal from 'sweetalert2';
-
+import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { login } from '../../store/auth/auth.actions';
 
 import { TranslocoModule } from '@ngneat/transloco';
 
+import {
+  inputClass,
+  labelClass,
+  primaryButtonClass
+} from '../../../styles/tailwind-classes';
+
 @Component({
     selector: 'app-auth',
-    imports: [FormsModule, TranslocoModule],
+    imports: [FormsModule, TranslocoModule,CommonModule],
     templateUrl: './auth.component.html'
 })
 export class AuthComponent {
+
+  labelClass = labelClass;
+  inputClass =inputClass;
+  primaryButtonClass =primaryButtonClass;
 
   user: User;
 

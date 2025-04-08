@@ -2,50 +2,40 @@
     <form class="max-w-3xl mx-auto" (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
         <div class="grid gap-6 mb-6 md:grid-cols-3">
             <div>
-
-                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
+                <label for="name" [ngClass]="labelClass">{{
                     'userform.form.nom' | transloco}}</label>
                 <input type="text" id="name"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
-                        dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    [ngClass]="inputClass"
                     placeholder="{{ 'userform.form.nom' | transloco}}" name="first_name" [(ngModel)]="user.name"
                     #name="ngModel" required />
             </div>
             <div>
-                <label for="lastname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
+                <label for="lastname" [ngClass]="labelClass">{{
                     'userform.form.primerCognom' | transloco}}</label>
-                <input type="text" id="lastname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-             focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-              dark:focus:border-blue-500" placeholder="{{ 'userform.form.primerCognom' | transloco}}" name="lastname"
+                <input type="text" id="lastname" [ngClass]="inputClass" placeholder="{{ 'userform.form.primerCognom' | transloco}}" name="lastname"
                     [(ngModel)]="user.lastname" #lastname="ngModel" required />
             </div>
             <div>
-                <label for="lastname2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
+                <label for="lastname2" [ngClass]="labelClass">{{
                     'userform.form.segonCognom' | transloco}}</label>
-                <input type="text" id="lastname2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-             focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-              dark:focus:border-blue-500" placeholder="{{ 'userform.form.segonCognom' | transloco}}" name="lastname2"
+                <input type="text" id="lastname2" [ngClass]="inputClass" placeholder="{{ 'userform.form.segonCognom' | transloco}}" name="lastname2"
                     [(ngModel)]="user.lastname2" #lastname2="ngModel" />
 
             </div>
         </div>
         <div class="grid gap-6 mb-6 md:grid-cols-2">
             <div>
-                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
+                <label for="email" [ngClass]="labelClass">{{
                     'userform.form.correu' | transloco}}</label>
-                <input type="text" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-             focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-              dark:focus:border-blue-500" placeholder="{{ 'userform.form.correu' | transloco}}" name="email"
+                <input type="text" id="email" [ngClass]="inputClass" placeholder="{{ 'userform.form.correu' | transloco}}" name="email"
                     [(ngModel)]="user.email" #email="ngModel" required />
                     <p *ngIf="errors  && errors.email" class="mt-2 text-sm text-red-600 dark:text-red-500">
                         <span class="font-medium">Error:</span> {{ errors.email }}</p>
             </div>
             <div>
-                <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
+                <label for="username" [ngClass]="labelClass">{{
                     'userform.form.nomUsuari' | transloco}}</label>
-                <input type="text" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-             focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-              dark:focus:border-blue-500" placeholder="{{ 'userform.form.nomUsuari' | transloco}}" name="username"
+                <input type="text" id="username" [ngClass]="inputClass" placeholder="{{ 'userform.form.nomUsuari' | transloco}}" name="username"
                     [(ngModel)]="user.username" #username="ngModel" required />
                     <p *ngIf="errors  && errors.username" class="mt-2 text-sm text-red-600 dark:text-red-500">
                         <span class="font-medium">Error:</span> {{ errors.username }}</p>
@@ -54,19 +44,15 @@
         @if(userNou){
         <div class="grid gap-6 mb-6 md:grid-cols-2">
             <div>
-                <label for="pass" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
+                <label for="pass" [ngClass]="labelClass">{{
                     'userform.form.pass' | transloco}}</label>
-                <input type="password" id="pass" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-             focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-              dark:focus:border-blue-500" placeholder="••••••••" name="password" [(ngModel)]="user.password"
+                <input type="password" id="pass" [ngClass]="inputClass" placeholder="••••••••" name="password" [(ngModel)]="user.password"
                     #password="ngModel" required />
             </div>
             <div>
-                <label for="rpassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
+                <label for="rpassword" [ngClass]="labelClass">{{
                     'userform.form.rpass' | transloco}}</label>
-                <input type="password" id="rpassword" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-             focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-              dark:focus:border-blue-500" placeholder="••••••••" name="rpassword" [(ngModel)]="user.rpassword"
+                <input type="password" id="rpassword" [ngClass]="inputClass"  placeholder="••••••••" name="rpassword" [(ngModel)]="user.rpassword"
                     #rpassword="ngModel" required />
             </div>
 
@@ -138,39 +124,34 @@
                 <div class="p-4 md:p-5">
                     <form class="space-y-4" action="#" (ngSubmit)="onChangePassword(passForm)" #passForm="ngForm">
                         <!--div>
-                          <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                          <label for="email" [ngClass]="labelClass">Your email</label>
                           <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required />
                       </div-->
                         <div>
                             <label for="current1"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
+                                [ngClass]="labelClass">{{
                                 'userform.pass.form.current1' | transloco}}</label>
                             <input type="password" [(ngModel)]="current1" #current1="ngModel" name="current1"
                                 id="current1" placeholder="••••••••"
-                                class="bg-gray-50 border
-                           border-gray-300 text-gray-900 text-sm rounded-lg
-                           focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                [ngClass]="inputClass"
                                 required />
                         </div>
 
                         <div>
-                            <label for="newPass" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
+                            <label for="newPass" [ngClass]="labelClass">{{
                                 'userform.pass.form.passNew' | transloco}}</label>
                             <input type="password" name="newPass" [(ngModel)]="newPass" #newPass="ngModel" id="newPass"
                                 placeholder="••••••••"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                [ngClass]="inputClass"
                                 required />
                         </div>
                         <div>
                             <label for="newPass2"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
+                                [ngClass]="labelClass">{{
                                 'userform.pass.form.passNew2' | transloco}}</label>
                             <input type="password" name="newPass2" [(ngModel)]="newPass2" #newPass2="ngModel"
                                 id="newPass2" placeholder="••••••••"
-                                class="bg-gray-50 border border-gray-300
-                         text-gray-900 text-sm rounded-lg
-                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                [ngClass]="inputClass"
                                 required />
                             <p *ngIf="passwordsMismatch" class="mt-2 text-sm text-red-600 dark:text-red-500"><span
                                     class="font-medium">
