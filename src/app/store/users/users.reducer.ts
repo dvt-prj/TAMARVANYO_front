@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { User } from "../../models/user";
-import { addSuccess, find, findAll, findAllPageable, findByUserName, removeSuccess, resetUser, setErrors, setErrorsSimple, setPaginator, updateSuccess } from "./users.actions";
+import { addSuccess, find, findAll, findAllPageable, findByUserName, removeSuccess, resetUser, setErrors, setErrorsSimple, setPaginator, updateInfoSuccess, updateSuccess } from "./users.actions";
 
 const users: User[] = [];
 const user: User = new User();
@@ -65,6 +65,13 @@ export const usersReducer = createReducer(
         loading: state.loading
     })),
     on(updateSuccess, (state, { userUpdated }) => ({
+        users: state.users.map(u => (u.id == userUpdated.id) ? { ...userUpdated } : u),
+        paginator: state.paginator,
+        user: {...userUpdated},
+        errors: {},
+        loading: state.loading
+    })),
+    on(updateInfoSuccess, (state, { userUpdated }) => ({
         users: state.users.map(u => (u.id == userUpdated.id) ? { ...userUpdated } : u),
         paginator: state.paginator,
         user: {...userUpdated},

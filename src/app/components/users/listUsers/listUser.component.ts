@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../../models/user';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { AuthService } from '../../../services/auth.service';
 import { Store } from '@ngrx/store';
 import { load, remove } from '../../../store/users/users.actions';
 import Swal from 'sweetalert2';
+import {
+  primaryButtonClass
+} from '../../../../styles/tailwind-classes';
 
 @Component({
     selector: 'listUsers',
-    imports: [RouterModule, PaginatorComponent],
+    imports: [RouterModule, PaginatorComponent,CommonModule],
     templateUrl: './listUsers.component.html'
 })
 export class ListUsersComponent implements OnInit {
@@ -19,6 +23,8 @@ export class ListUsersComponent implements OnInit {
   users: User[] = [];
   paginator: any = {};
   loading: boolean = true;
+
+  primaryButtonClass=primaryButtonClass;
 
   constructor(
     private store: Store<{ users: any }>,

@@ -29,7 +29,7 @@
                     'userform.form.correu' | transloco}}</label>
                 <input type="text" id="email" [ngClass]="inputClass" placeholder="{{ 'userform.form.correu' | transloco}}" name="email"
                     [(ngModel)]="user.email" #email="ngModel" required />
-                    <p *ngIf="errors  && errors.email" class="mt-2 text-sm text-red-600 dark:text-red-500">
+                    <p *ngIf="errors  && errors.email" [ngClass]="errorTextClass">
                         <span class="font-medium">Error:</span> {{ errors.email }}</p>
             </div>
             <div>
@@ -37,59 +37,55 @@
                     'userform.form.nomUsuari' | transloco}}</label>
                 <input type="text" id="username" [ngClass]="inputClass" placeholder="{{ 'userform.form.nomUsuari' | transloco}}" name="username"
                     [(ngModel)]="user.username" #username="ngModel" required />
-                    <p *ngIf="errors  && errors.username" class="mt-2 text-sm text-red-600 dark:text-red-500">
+                    <p *ngIf="errors  && errors.username" [ngClass]="errorTextClass">
                         <span class="font-medium">Error:</span> {{ errors.username }}</p>
             </div>
         </div>
         @if(userNou){
-        <div class="grid gap-6 mb-6 md:grid-cols-2">
-            <div>
-                <label for="pass" [ngClass]="labelClass">{{
-                    'userform.form.pass' | transloco}}</label>
-                <input type="password" id="pass" [ngClass]="inputClass" placeholder="••••••••" name="password" [(ngModel)]="user.password"
-                    #password="ngModel" required />
-            </div>
-            <div>
-                <label for="rpassword" [ngClass]="labelClass">{{
-                    'userform.form.rpass' | transloco}}</label>
-                <input type="password" id="rpassword" [ngClass]="inputClass"  placeholder="••••••••" name="rpassword" [(ngModel)]="user.rpassword"
-                    #rpassword="ngModel" required />
-            </div>
+            <div class="grid gap-6 mb-6 md:grid-cols-2">
+                <div>
+                    <label for="pass" [ngClass]="labelClass">{{
+                        'userform.form.pass' | transloco}}</label>
+                    <input type="password" id="pass" [ngClass]="inputClass" placeholder="••••••••" name="password" [(ngModel)]="user.password"
+                        #password="ngModel" required />
+                </div>
+                <div>
+                    <label for="rpassword" [ngClass]="labelClass">{{
+                        'userform.form.rpass' | transloco}}</label>
+                    <input type="password" id="rpassword" [ngClass]="inputClass"  placeholder="••••••••" name="rpassword" [(ngModel)]="user.rpassword"
+                        #rpassword="ngModel" required />
+                </div>
 
-        </div>
-        <div *ngIf="userNou" class="grid gap-6 mb-6 md:grid-cols-1">
-            <p *ngIf="passwordsMismatchMain" class="mt-2 text-sm text-red-600 dark:text-red-500"><span
-                    class="font-medium">
-                    {{ 'userform.pass.error.noMatches' | transloco}}</span></p>
-            <p *ngIf="newPasswordUglyMain" class="mt-2 text-sm text-red-600 dark:text-red-500"><span
-                    class="font-medium"></span> {{ 'userform.pass.error.newPass' | transloco}}</p>
-        </div>
+            </div>
+            <div *ngIf="userNou" class="grid gap-6 mb-6 md:grid-cols-1">
+                <p *ngIf="passwordsMismatchMain" [ngClass]="errorTextClass"><span
+                        class="font-medium">
+                        {{ 'userform.pass.error.noMatches' | transloco}}</span></p>
+                <p *ngIf="newPasswordUglyMain" [ngClass]="errorTextClass"><span
+                        class="font-medium"></span> {{ 'userform.pass.error.newPass' | transloco}}</p>
+            </div>
         }
-        <p *ngIf="errors  && errors.error" class="mt-2 text-sm text-red-600 dark:text-red-500">
+        <p *ngIf="errors  && errors.error" [ngClass]="errorTextClass">
             <span class="font-medium">Error:</span> {{ errors.error }}</p>
         @if(isAdmin()){
-        <div class="grid gap-6 mb-6 md:grid-cols-1 ">
-            <div class="flex items-start mb-6">
-                <div class="flex items-center h-5">
-                    <input id="admin" id="admin" type="checkbox" checked="{{user.admin}}" [(ngModel)]="user.admin"
-                        #admin="ngModel" name="admin" class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300
-                         dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+            <div class="grid gap-6 mb-6 md:grid-cols-1 ">
+                <div class="flex items-start mb-6">
+                    <div class="flex items-center h-5">
+                        <input id="admin" id="admin" type="checkbox" checked="{{user.admin}}" [(ngModel)]="user.admin"
+                            #admin="ngModel" name="admin" [ngClass]="checkboxClass" />
+                    </div>
+                    <label for="remember"  [ngClass]="labelClassML3">{{
+                        'userform.form.isAdmin' | transloco}}</label>
                 </div>
-                <label for="remember" class="ml-3 block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
-                    'userform.form.isAdmin' | transloco}}</label>
             </div>
-        </div>
         }
         <div class="flex space-x-4 ">
-            <button *ngIf="!userNou" data-modal-target="changePass-modal" data-modal-toggle="changePass-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4
-            focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600
-             dark:hover:bg-blue-700 dark:focus:ring-blue-800" id="openModalBtn" type="button"
+            <button *ngIf="!userNou" data-modal-target="changePass-modal" data-modal-toggle="changePass-modal" [ngClass]="primaryButtonClass" id="openModalBtn" type="button"
                 (click)="resetFormPass(passForm)">
                 {{ 'userform.btn.canviarPass' | transloco}}
             </button>
             <button type="submit"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg 
-            text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            [ngClass]="primaryButtonClass">
                 {{ userNou ? ('userform.btn.desar' | transloco) : ('userform.btn.actualitzar' | transloco) }}</button>
         </div>
 
@@ -104,13 +100,11 @@
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
                 <!-- Modal header -->
-                <div
-                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                <div [ngClass]="modalHeaderClass">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                         {{ 'userform.pass.form.titol' | transloco}}
                     </h3>
-                    <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto 
-                        inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    <button type="button" [ngClass]="primaryButtonClass"
                         data-modal-hide="changePass-modal" id="closeModalBtn">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 14 14">
@@ -123,10 +117,6 @@
                 <!-- Modal body -->
                 <div class="p-4 md:p-5">
                     <form class="space-y-4" action="#" (ngSubmit)="onChangePassword(passForm)" #passForm="ngForm">
-                        <!--div>
-                          <label for="email" [ngClass]="labelClass">Your email</label>
-                          <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required />
-                      </div-->
                         <div>
                             <label for="current1"
                                 [ngClass]="labelClass">{{
@@ -153,12 +143,12 @@
                                 id="newPass2" placeholder="••••••••"
                                 [ngClass]="inputClass"
                                 required />
-                            <p *ngIf="passwordsMismatch" class="mt-2 text-sm text-red-600 dark:text-red-500"><span
+                            <p *ngIf="passwordsMismatch" [ngClass]="errorTextClass"><span
                                     class="font-medium">
                                     {{ 'userform.pass.error.noMatches' | transloco}}</span></p>
-                            <p *ngIf="newPasswordUgly" class="mt-2 text-sm text-red-600 dark:text-red-500"><span
+                            <p *ngIf="newPasswordUgly" [ngClass]="errorTextClass"><span
                                     class="font-medium"></span> {{ 'userform.pass.error.newPass' | transloco}}</p>
-                            <p *ngIf="errors  && errors.error" class="mt-2 text-sm text-red-600 dark:text-red-500">
+                            <p *ngIf="errors  && errors.error" [ngClass]="errorTextClass">
                                 <span class="font-medium">Error:</span> {{ errors.error }}
                             </p>
                         </div>
@@ -167,8 +157,7 @@
                             'userform.pass.form.passRequisits' | transloco}}</p>
 
                         <button type="submit"
-                            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
-                      font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        [ngClass]="primaryButtonClass">
                             {{ 'userform.pass.btn.canviar' | transloco}}</button>
 
                     </form>

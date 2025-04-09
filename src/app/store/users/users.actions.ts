@@ -23,6 +23,9 @@ export const changePass = createAction('changePass', props<{ idUser: number, cur
 export const add = createAction('add', props<{ userNew: User }>());
 export const addSuccess = createAction('addSuccess', props<{ userNew: User }>());
 
+export const updateInfo = createAction('updateInfo', props<{ userUpdated: User }>());
+export const updateInfoSuccess = createAction('updateInfoSuccess', props<{ userUpdated: User }>());
+
 export const update = createAction('update', props<{ userUpdated: User }>());
 export const updateSuccess = createAction('updateSuccess', props<{ userUpdated: User }>());
 

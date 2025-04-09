@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { UserService } from "../../services/user.service";
-import { add, addSuccess, changePass, findAllPageable, findByUserName, load, loadUser, remove, removeSuccess, setErrors, setErrorsSimple, update, updateSuccess } from "./users.actions";
+import { add, addSuccess, changePass, findAllPageable, findByUserName, load, loadUser, remove, removeSuccess, setErrors, setErrorsSimple, update, updateInfo, updateInfoSuccess, updateSuccess } from "./users.actions";
 import { catchError, exhaustMap, map, of, tap } from "rxjs";
 import { User } from "../../models/user";
 import Swal from "sweetalert2";
@@ -83,6 +83,18 @@ export class UsersEffects {
         )
     );
 
+    updateInfoUser$ = createEffect(
+        () => this.actions$.pipe(
+            ofType(updateInfo),
+            exhaustMap(action => this.service.update(action.userUpdated)
+                .pipe(
+                    map(userUpdated => updateInfoSuccess({ userUpdated })),
+                    catchError(error => (error.status == 400) ? of(setErrors({ userForm: action.userUpdated, errors: error.error })) : of(error)
+                    )
+                )
+            )
+        )
+    );
     removeUser$ = createEffect(
         () => this.actions$.pipe(
             ofType(remove),
@@ -107,8 +119,23 @@ export class UsersEffects {
         })
     ), { dispatch: false })
 
+
+
     updateSuccessUser$ = createEffect(() => this.actions$.pipe(
         ofType(updateSuccess),
+        tap(() => {
+            this.router.navigate(['/users/page/',0]);
+
+            Swal.fire({
+                title: "Actualizado!",
+                text: "Usuario editado con exito!",
+                icon: "success"
+            });
+        })
+    ), { dispatch: false })
+
+    updateInfoSuccessUser$ = createEffect(() => this.actions$.pipe(
+        ofType(updateInfoSuccess),
         tap(() => {
             this.router.navigate(['/user/info']);
 

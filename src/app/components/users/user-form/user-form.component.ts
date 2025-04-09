@@ -4,16 +4,18 @@ import { CommonModule } from '@angular/common';
 import { User } from '../../../models/user';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { add, changePass, find, loadUser, resetUser, update } from '../../../store/users/users.actions';
+import { add, changePass, find, loadUser, resetUser, update, updateInfo } from '../../../store/users/users.actions';
 import { TranslocoModule } from '@ngneat/transloco';
 import { AuthService } from '../../../services/auth.service';
 import { Modal } from 'flowbite';
 import {
   inputClass,
   labelClass,
+  labelClassML3,
   errorTextClass,
   primaryButtonClass,
-  checkboxClass
+  checkboxClass,
+  modalHeaderClass
 } from '../../../../styles/tailwind-classes';
 
 @Component({
@@ -30,8 +32,15 @@ export class UserFormComponent implements OnInit, AfterViewInit {
 
   userNou !: boolean;
 
+  userInfo !: boolean;
+
   labelClass = labelClass;
   inputClass =inputClass;
+  errorTextClass =errorTextClass;
+  primaryButtonClass =primaryButtonClass;
+  checkboxClass =checkboxClass;
+  modalHeaderClass=modalHeaderClass;
+  labelClassML3=labelClassML3;
 
   passwordsMismatch: boolean = false;
   newPasswordUgly: boolean = false;
@@ -94,9 +103,11 @@ export class UserFormComponent implements OnInit, AfterViewInit {
         //     this.store.dispatch(resetUser());
         console.log("Cargamos limpio");
       } else if (id > 0) {
+        this.userInfo = false;
         console.log("Cargamos por id");
         this.store.dispatch(find({ id })); // Dispatching action to find the user by ID
       } else {
+        this.userInfo = true;
         console.log("Cargamos por username");
         this.store.dispatch(loadUser({ username: this.authService.user.user.username }));
       }
@@ -125,7 +136,11 @@ export class UserFormComponent implements OnInit, AfterViewInit {
     } else {
       // Dispatching update or add action based on the user ID
       if (this.user.id > 0) {
-        this.store.dispatch(update({ userUpdated: this.user }));
+        if(this.userInfo) {
+        this.store.dispatch(updateInfo({ userUpdated: this.user }));
+        }else{
+          this.store.dispatch(update({ userUpdated: this.user }));
+        }
       } else {
         this.store.dispatch(add({ userNew: this.user }));
       }
